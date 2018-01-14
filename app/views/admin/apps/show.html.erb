@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @app.user %>
+</p>
+
+<p>
+  <strong>Public key:</strong>
+  <%= @app.public_key %>
+</p>
+
+<p>
+  <strong>Private key:</strong>
+  <%= @app.private_key %>
+</p>
+
+<p>
+  <strong>Domains:</strong>
+  <%= @app.domains %>
+</p>
+
+<%= link_to 'Edit', edit_app_path(@app) %> |
+<%= link_to 'Back', apps_path %>

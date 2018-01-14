@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Apps</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Public key</th>
+        <th>Private key</th>
+        <th>Domains</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @apps.each do |app| %>
+        <tr>
+          <td><%= app.user.name %></td>
+          <td><%= app.public_key %></td>
+          <td><%= app.private_key %></td>
+          <td><%= app.domains %></td>
+          <td><%= link_to 'Show', admin_app_path(app) %></td>
+          <td><%= link_to 'Destroy', admin_app_path(app), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  
+</div>

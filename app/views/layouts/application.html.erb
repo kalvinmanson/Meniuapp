@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Meniuapp</title>
+	<%= csrf_meta_tags %>
+	<%= stylesheet_link_tag    'application', media: 'all' %>
+	
+</head>
+
+<body>
+	<header>
+		<%= render "partials/header" %>
+	</header>
+	<section>
+		<%= render "partials/alerts" %>
+		<%= yield %>
+	</section>
+	<footer>
+		<div class="container">
+			<p>&copy; 2017 By <a href="http://kalvinman.com">Kalvin Manson</a></p>
+
+		</div>
+	</footer>
+
+	<%= javascript_include_tag 'application' %>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @quest.user %>
+</p>
+
+<p>
+  <strong>Quest:</strong>
+  <%= @quest.quest %>
+</p>
+
+<p>
+  <strong>Visited place:</strong>
+  <%= @quest.visited_place %>
+</p>
+
+<p>
+  <strong>Visited plate:</strong>
+  <%= @quest.visited_plate %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @quest.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @quest.lng %>
+</p>
+
+<%= link_to 'Edit', edit_quest_path(@quest) %> |
+<%= link_to 'Back', quests_path %>

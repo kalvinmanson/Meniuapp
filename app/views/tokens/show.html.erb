@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @token.user %>
+</p>
+
+<p>
+  <strong>App:</strong>
+  <%= @token.app %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @token.token %>
+</p>
+
+<p>
+  <strong>Expires at:</strong>
+  <%= @token.expires_at %>
+</p>
+
+<%= link_to 'Edit', edit_token_path(@token) %> |
+<%= link_to 'Back', tokens_path %>

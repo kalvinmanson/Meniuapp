@@ -1,0 +1,27 @@
+<div class="container">
+  <%= link_to 'New Category', new_admin_category_path, class: 'float-right btn btn-default' %>
+  <h1>Categories</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Place</th>
+        <th>Plate</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %></td>
+          <td><%= category.place %></td>
+          <td><%= category.plate %></td>
+          <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
+          <td><%= link_to 'Destroy', admin_category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

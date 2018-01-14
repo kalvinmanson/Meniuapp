@@ -1,0 +1,35 @@
+<div class="container">
+
+  <h1>Users</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Uid</th>
+        <th>Provider</th>
+        <th>Role</th>
+        <th>Name</th>
+        <th>Active</th>
+        <th>Lat</th>
+        <th>Lng</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.uid %></td>
+          <td><%= user.provider %></td>
+          <td><%= user.role %></td>
+          <td><%= user.name %></td>
+          <td><%= user.active %></td>
+          <td><%= user.lat %></td>
+          <td><%= user.lng %></td>
+          <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

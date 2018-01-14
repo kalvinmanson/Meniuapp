@@ -1,0 +1,47 @@
+<%= form_with(model: quest, local: true) do |form| %>
+  <% if quest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(quest.errors.count, "error") %> prohibited this quest from being saved:</h2>
+
+      <ul>
+      <% quest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :quest_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quest %>
+    <%= form.text_field :quest, id: :quest_quest %>
+  </div>
+
+  <div class="field">
+    <%= form.label :visited_place %>
+    <%= form.number_field :visited_place, id: :quest_visited_place %>
+  </div>
+
+  <div class="field">
+    <%= form.label :visited_plate %>
+    <%= form.number_field :visited_plate, id: :quest_visited_plate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lat %>
+    <%= form.text_field :lat, id: :quest_lat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lng %>
+    <%= form.text_field :lng, id: :quest_lng %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Payments</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Place</th>
+        <th>Months</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @payments.each do |payment| %>
+        <tr>
+          <td><%= payment.place.user.name %></td>
+          <td><%= payment.place.name %></td>
+          <td><%= payment.months %></td>
+          <td><%= payment.total %></td>
+          <td><%= payment.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  
+</div>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid: MyString
+  provider: MyString
+  role: MyString
+  name: MyString
+  active: false
+  lat: 1.5
+  lng: 1.5
+
+two:
+  uid: MyString
+  provider: MyString
+  role: MyString
+  name: MyString
+  active: false
+  lat: 1.5
+  lng: 1.5

@@ -1,0 +1,42 @@
+<div class="container">
+
+  <h1>Places</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Description</th>
+        <th>Rank</th>
+        <th>Views</th>
+        <th>Expires at</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @places.each do |place| %>
+        <tr>
+          <td><%= place.user.name %></td>
+          <td><%= place.category.name %></td>
+          <td><%= place.name %></td>
+          <td><%= place.address %></td>
+          <td><%= place.phone %></td>
+          <td><%= place.email %></td>
+          <td><%= place.description %></td>
+          <td><%= place.rank %></td>
+          <td><%= place.views %></td>
+          <td><%= place.expires_at %></td>
+          <td><%= link_to 'Show', admin_place_path(place) %></td>
+          <td><%= link_to 'Edit', edit_admin_place_path(place) %></td>
+          <td><%= link_to 'Destroy', admin_place_path(place), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

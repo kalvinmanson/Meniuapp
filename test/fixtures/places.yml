@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  category: one
+  name: MyString
+  slug: MyString
+  address: MyString
+  phone: MyString
+  email: MyString
+  description: MyText
+  rank: 1.5
+  views: 1
+  lat: 1.5
+  lng: 1.5
+  expires_at: 2017-12-13
+
+two:
+  user: two
+  category: two
+  name: MyString
+  slug: MyString
+  address: MyString
+  phone: MyString
+  email: MyString
+  description: MyText
+  rank: 1.5
+  views: 1
+  lat: 1.5
+  lng: 1.5
+  expires_at: 2017-12-13

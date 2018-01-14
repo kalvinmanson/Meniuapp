@@ -1,0 +1,34 @@
+<div class="card bg-dark text-white" style="text-shadow: 1px 1px 1px #000000;">
+  <%= image_tag place.cover.url(:medium), class: "card-img" %>
+  <div class="card-img-overlay pt-4">
+    <%= image_tag place.logo.url(:medium), class: "float-right" %>
+    <h1 class="card-title"><%= place.name %></h1>
+    <div class="w-50">
+      <p class="card-text">
+        <%= place.description.presence || 'Algo que nos quieras decir sobre este sitio. ¿Como es el ambiente, que pueden esperar tus clientes al venir aquí?, y muchas cosas como estas...' %>
+      </p>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= image_tag place.avatar.url(:medium), class: "img-thumbnail img-fluid" %>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-group">
+            <p class="card-text">
+              <i class="fa fa-tag"></i> <%= place.category ? place.category.name : 'Categoría' %><br>
+              <i class="fa fa-map-marker"></i> <%= place.address.presence || 'Calle 123 #45-67' %><br>
+              <i class="fa fa-phone"></i> <%= place.phone.presence || '+57 1 1234567 - +57 1 98736845' %><br>
+              <i class="fa fa-envelope"></i> <%= place.email.presence || 'restaurante@correo.com' %>
+            </p>
+            <p class="card-text">
+              <a href="#" class="btn btn-secondary"><i class="fa fa-map-o"></i> ¿Como llegar?</a>
+              <%= link_to 'Ver platos', place_path(place.slug), class: 'btn btn-secondary' %>
+            </p>
+            <% if current_user.present? %>
+              <a href="#">Like</a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>
+</div>
