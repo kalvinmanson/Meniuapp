@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   #Web App
   get '/places/my', to: 'places#my'
-  resources :places, param: :slug
+  resources :places
   get '/como', to: 'web#how'
   get '/set_location', to: 'web#set_location'
 end

@@ -33,7 +33,7 @@ class PlacesController < ApplicationController
     if @place.save
       redirect_to place_path(@place), notice: 'Place was successfully created.'
     else
-      render :new 
+      render :new
     end
   end
 
@@ -57,7 +57,7 @@ class PlacesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_place
-      @place = Place.find_by slug: params[:slug]
+      @place = Place.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

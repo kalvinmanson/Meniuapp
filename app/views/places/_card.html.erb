@@ -21,14 +21,21 @@
             </p>
             <p class="card-text">
               <a href="#" class="btn btn-secondary"><i class="fa fa-map-o"></i> ¿Como llegar?</a>
-              <%= link_to 'Ver platos', place_path(place.slug), class: 'btn btn-secondary' %>
+              <%= link_to 'Ver platos', place_path(place), class: 'btn btn-secondary' %>
             </p>
-            <% if current_user.present? %>
-              <a href="#">Like</a>
-            <% end %>
           </div>
         </div>
       </div>
-    </div>    
+    </div>
+    <% if current_user.present? %>
+      <% if current_user.id = place.user.id %>
+      <div class="btn-group float-right" role="group" aria-label="Options">
+        <%= link_to 'Editar', edit_place_path(place), class: 'btn btn-light' %>
+        <%= link_to 'Estadisticas', edit_place_path(place), class: 'btn btn-light' %>
+      </div>
+      <% end %>
+      <a href="#">Like</a>
+
+    <% end %>
   </div>
 </div>
