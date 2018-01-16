@@ -1,0 +1,139 @@
+<%= form_for([place]) do |form| %>
+  <% if place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+      <ul>
+      <% place.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="card bg-dark text-white" style="text-shadow: 1px 1px 1px #000000;">
+  <%= image_tag place.cover.url(:medium), class: "card-img" %>
+  <div class="card-img-overlay pt-4">
+    <%= image_tag place.logo.url(:medium), class: "float-right" %>
+    <h1 class="card-title">Nombre del restaurante</h1>
+    <div class="w-50">
+      <p class="card-text">
+        <%= place.description.presence || 'Algo que nos quieras decir sobre este sitio. ¿Como es el ambiente, que pueden esperar tus clientes al venir aquí?, y muchas cosas como estas...' %>
+      </p>
+      <div class="row">
+        <div class="col-sm-4">
+          <%= image_tag place.avatar.url(:medium), class: "img-thumbnail img-fluid" %>
+        </div>
+        <div class="col-sm-8">
+          <div class="form-group">
+            <p class="card-text">
+              <i class="fa fa-tag"></i> <%= place.category ? place.category.name : 'Categoría' %><br>
+              <i class="fa fa-map-marker"></i> <%= place.address.presence || 'Calle 123 #45-67' %><br>
+              <i class="fa fa-phone"></i> <%= place.phone.presence || '+57 1 1234567 - +57 1 98736845' %><br>
+              <i class="fa fa-envelope"></i> <%= place.email.presence || 'restaurante@correo.com' %>
+            </p>
+            <p class="card-text">
+              <a href="#" class="btn btn-secondary"><i class="fa fa-map-o"></i> ¿Como llegar?</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>    
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <%= form.label :category_id %>
+      <%= form.select(:category_id, Category.all.collect {|a| [a.name, a.id]}, {}, { class: 'form-control' }) -%>
+    </div>
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, id: :place_name, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :cover %>
+      <%= image_tag place.cover.url(:medium), class: "img-fluid" %>
+      <%= form.file_field :cover, class: "form-control" %>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <%= image_tag place.avatar.url(:medium), class: "img-thumbnail img-fluid" %>
+      </div>
+      <div class="col-sm-9">
+        <div class="form-group">
+          <%= form.label :avatar %>
+          <%= form.file_field :avatar, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <%= image_tag place.logo.url(:medium), class: "bg-dark img-fluid p-2 my-3" %>
+      </div>
+      <div class="col-sm-9">
+        <div class="form-group">
+          <%= form.label :logo %>
+          <%= form.file_field :logo, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= form.label :description %>
+      <%= form.text_area :description, id: :place_description, class: "form-control", rows: 7 %>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="form-group">
+      <%= form.label :address %>
+      <%= form.text_field :address, id: :place_address, class: "form-control" %>
+    </div>
+    <%= form.hidden_field :lat, :class => "form-control" %>
+    <%= form.hidden_field :lng, :class => "form-control" %>
+    <div id="map" style="height: 400px;"></div>
+    <% 
+      if place.lat.present? && place.lat != 0
+        maplat = place.lat
+        maplng = place.lng
+      else
+        maplat = current_user.lat
+        maplng = current_user.lng
+      end
+    %>
+    
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: <%= maplat %>, lng: <%= maplng %>},
+          zoom: 15
+        });
+
+        marker = new google.maps.Marker({
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: {lat: <%= maplat %>, lng: <%= maplng %>}
+        });
+        marker.addListener('dragend', function() {
+          newLocation = marker.getPosition();
+          document.getElementById("place_lat").value = newLocation.lat();
+          document.getElementById("place_lng").value = newLocation.lng();
+          map.setCenter(newLocation);
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBAnniJ7HwFQYaggqcF_03-P4XB3-7y6M&callback=initMap"
+    async defer></script>
+    <div class="form-group">
+      <%= form.label :phone %>
+      <%= form.text_field :phone, id: :place_phone, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= form.label :email %>
+      <%= form.text_field :email, id: :place_email, class: "form-control" %>
+    </div>
+    <%= form.submit "Save", class: "btn btn-primary btn-lg" %>
+  </div>
+</div>
+  
+<% end %>

@@ -1,10 +1,11 @@
 <div class="container">
-	<% if @places.count == 0 %>
+	<%= render "card", place: @place %>
+	<% if @plates.count == 0 %>
 	  <div class="jumbotron">
 	    <h1>Are you new?</h1>
 	    <h3>You don't have any place created, your adventure begin here.</h3>
 	    <p align="center">
-	      <%= link_to '<i class="fa fa-plus"></i> New Place'.html_safe, new_place_path, class: "btn btn-primary btn-lg" %>
+	      <%= link_to '<i class="fa fa-plus"></i> New Plate'.html_safe, new_place_path, class: "btn btn-primary btn-lg" %>
 	    </p>
 	  </div>
 	<% else  %>

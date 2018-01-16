@@ -1,5 +1,6 @@
 class PlatesController < ApplicationController
   before_action :set_plate, only: [:show, :edit, :update, :destroy]
+  before_action :set_place
 
   # GET /plates
   # GET /plates.json
@@ -65,6 +66,9 @@ class PlatesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_plate
       @plate = Plate.find(params[:id])
+    end
+    def set_place
+      @place = Place.find(params[:place_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
