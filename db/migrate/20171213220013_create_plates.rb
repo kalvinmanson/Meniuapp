@@ -9,6 +9,8 @@ class CreatePlates < ActiveRecord::Migration[5.1]
       t.boolean :active
       t.integer :price
       t.string :tags
+      t.float :rank
+      t.integer :views
 
       t.timestamps
     end

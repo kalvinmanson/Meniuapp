@@ -11,6 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_self
+ *= require trumbowyg/trumbowyg
  */
 
 
@@ -27,6 +28,11 @@ $cyan:    #17a2b8 !default;
 
 @import "./bootstrap/bootstrap";
 @import "./font-awesome.min";
+@import "./bootstrap-tagsinput";
+@import "./jquery.fancybox.min";
+@import "./slick";
+@import "./slick-theme";
+
 /*@import "./animate";
 @import "./jquery.fancybox.min";*/
 

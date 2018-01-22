@@ -9,7 +9,7 @@
       </p>
       <div class="row">
         <div class="col-sm-4">
-          <%= image_tag place.avatar.url(:medium), class: "img-thumbnail img-fluid" %>
+          <%= link_to image_tag(place.avatar.url(:medium), class: "img-thumbnail img-fluid"), place %>
         </div>
         <div class="col-sm-8">
           <div class="form-group">
@@ -19,10 +19,12 @@
               <i class="fa fa-phone"></i> <%= place.phone.presence || '+57 1 1234567 - +57 1 98736845' %><br>
               <i class="fa fa-envelope"></i> <%= place.email.presence || 'restaurante@correo.com' %>
             </p>
-            <p class="card-text">
-              <a href="#" class="btn btn-secondary"><i class="fa fa-map-o"></i> ¿Como llegar?</a>
-              <%= link_to 'Ver platos', place_path(place), class: 'btn btn-secondary' %>
-            </p>
+
+            <div class="btn-group" role="group" aria-label="Options">
+              <a href="#mapanchor" onclick="javascript:mapper()" class="btn btn-secondary"><i class="fa fa-map-o"></i> Mapa</a>
+              <%= link_to 'Restaurante', place, class: 'btn btn-secondary' %>
+              <%= link_to 'Platos', place_plates_path(place), class: 'btn btn-secondary' %>
+            </div>
           </div>
         </div>
       </div>
@@ -34,7 +36,56 @@
         <%= link_to '<i class="fa fa-line-chart"></i> Estadisticas'.html_safe, edit_place_path(place), class: 'btn btn-light' %>
       </div>
       <% end %>
-
     <% end %>
+  </div>
+</div>
+<div id="mapper" style="display: none;">
+  <a name="mapanchor"></a>
+  <div class="card">
+    <div id="floating-panel">
+      <b>Mode of Travel: </b>
+      <select id="mode">
+        <option value="WALKING">Walking</option>
+        <option value="DRIVING">Driving</option>
+        <option value="BICYCLING">Bicycling</option>
+        <option value="TRANSIT">Transit</option>
+      </select>
+    </div>
+    <div id="map" style="height: 80vh;"></div>
+
+    <script>
+      function initMap() {
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: {lat: <%= session[:lat].to_f %>, lng: <%= session[:lng].to_f %>}
+        });
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+        document.getElementById('mode').addEventListener('change', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+      }
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var selectedMode = document.getElementById('mode').value;
+        directionsService.route({
+          origin: {lat: <%= session[:lat].to_f %>, lng: <%= session[:lng].to_f %>},
+          destination: {lat: <%= place.lat %>, lng: <%= place.lng %>},
+          travelMode: google.maps.TravelMode[selectedMode]
+        }, function(response, status) {
+          if (status == 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+      function mapper() {
+        document.getElementById("mapper").style.display = "block";
+        initMap();
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBAnniJ7HwFQYaggqcF_03-P4XB3-7y6M" async defer></script>
   </div>
 </div>

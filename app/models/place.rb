@@ -4,6 +4,7 @@ class Place < ApplicationRecord
 
   belongs_to :user
   belongs_to :category
+  has_many :plates
 
   has_attached_file :cover, styles: { medium: "1500x500#", thumb: "750x250#" }, default_url: "/img/:style/cover.jpg"
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/

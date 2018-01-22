@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 20171214055511) do
     t.boolean "active"
     t.integer "price"
     t.string "tags"
+    t.float "rank", limit: 24
+    t.integer "views"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "picture_file_name"

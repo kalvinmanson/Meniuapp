@@ -1,40 +1,23 @@
-<div class="card bg-dark text-white border-0">
-  <%= image_tag place.cover.url(:medium), class: "card-img" %>
-  <div class="card-img-overlay pt-4">
-    <%= image_tag place.logo.url(:medium), class: "float-right" %>
-    <h1 class="card-title"><%= place.name %></h1>
-    <div class="w-50">
-      <p class="card-text">
-        <%= place.description.presence || 'Algo que nos quieras decir sobre este sitio. ¿Como es el ambiente, que pueden esperar tus clientes al venir aquí?, y muchas cosas como estas...' %>
-      </p>
-      <div class="row">
-        <div class="col-sm-4">
-          <%= image_tag place.avatar.url(:medium), class: "img-thumbnail img-fluid" %>
-        </div>
-        <div class="col-sm-8">
-          <div class="form-group">
-            <p class="card-text">
-              <i class="fa fa-tag"></i> <%= place.category ? place.category.name : 'Categoría' %><br>
-              <i class="fa fa-map-marker"></i> <%= place.address.presence || 'Calle 123 #45-67' %><br>
-              <i class="fa fa-phone"></i> <%= place.phone.presence || '+57 1 1234567 - +57 1 98736845' %><br>
-              <i class="fa fa-envelope"></i> <%= place.email.presence || 'restaurante@correo.com' %>
-            </p>
-            <p class="card-text">
-              <a href="#" class="btn btn-secondary"><i class="fa fa-map-o"></i> ¿Como llegar?</a>
-              <%= link_to 'Ver platos', place_path(place), class: 'btn btn-secondary' %>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
+<% if plate.active || (current_user.present? && current_user.id = plate.place.user.id) %>
+<div class="card border-0">
+  <% if plate.favored %>
+  <div class="card-header bg-warning text-white">
+    <i class="fa fa-star fa-2x float-right"></i>
+    <strong>Recomendado</strong>
+  </div>
+  <% end %>
+  <%= link_to image_tag(plate.picture.url(:medium), class: "card-img-top", alt: plate.name), place_plate_path(plate.place, plate) %>
+  <div class="card-body">
+    <%= link_to 'Ver', place_plate_path(plate.place, plate), class: 'btn btn-sm btn-primary float-right' %>
     <% if current_user.present? %>
-      <% if current_user.id = place.user.id %>
-      <div class="btn-group float-right" role="group" aria-label="Options">
-        <%= link_to '<i class="fa fa-edit"></i> Editar'.html_safe, edit_place_path(place), class: 'btn btn-light' %>
-        <%= link_to '<i class="fa fa-line-chart"></i> Estadisticas'.html_safe, edit_place_path(place), class: 'btn btn-light' %>
-      </div>
+      <% if current_user.id = plate.place.user.id %>
+      <%= link_to 'Editar', edit_place_plate_path(plate.place, plate), class: 'btn btn-sm btn-light float-right' %>
       <% end %>
-
+    <% end %>
+    <h5 class="card-title"><%= plate.name %></h5>
+    <% plate.tags.split(',').each do |tag| %>
+      <span class="btn-outline-secondary btn-sm"><%= tag.strip %></span>
     <% end %>
   </div>
 </div>
+<% end %>

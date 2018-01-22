@@ -1,5 +1,7 @@
 {
   "name": "Meniuapp",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "trumbowyg": "^2.9.4"
+  }
 }

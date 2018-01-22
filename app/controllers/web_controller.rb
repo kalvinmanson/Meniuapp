@@ -5,12 +5,14 @@ class WebController < ApplicationController
   def index
 
   end
-  
+
   def how
 
   end
 
   def set_location
+    session[:lat] = params[:latitude]
+    session[:lng] = params[:longitude]
   	if current_user.present?
   		if params[:latitude].present? && params[:longitude].present?
   			current_user.lat = params[:latitude]

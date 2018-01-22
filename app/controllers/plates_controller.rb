@@ -5,12 +5,15 @@ class PlatesController < ApplicationController
   # GET /plates
   # GET /plates.json
   def index
+    @plate =Plate.new
     @plates = Plate.all
   end
 
   # GET /plates/1
   # GET /plates/1.json
   def show
+    @plate.views += 1;
+    @plate.save
   end
 
   # GET /plates/new
@@ -26,10 +29,13 @@ class PlatesController < ApplicationController
   # POST /plates.json
   def create
     @plate = Plate.new(plate_params)
+    @plate.place = @place
+    @plate.views = 0;
+    @plate.rank = 0;
 
     respond_to do |format|
       if @plate.save
-        format.html { redirect_to @plate, notice: 'Plate was successfully created.' }
+        format.html { redirect_to place_plate_path(@place, @plate), notice: 'Plate was successfully created.' }
         format.json { render :show, status: :created, location: @plate }
       else
         format.html { render :new }
@@ -43,7 +49,7 @@ class PlatesController < ApplicationController
   def update
     respond_to do |format|
       if @plate.update(plate_params)
-        format.html { redirect_to @plate, notice: 'Plate was successfully updated.' }
+        format.html { redirect_to place_plates_path(@place), notice: 'Plate was successfully updated.' }
         format.json { render :show, status: :ok, location: @plate }
       else
         format.html { render :edit }
@@ -73,6 +79,6 @@ class PlatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plate_params
-      params.require(:plate).permit(:place_id, :name, :slug, :content, :favored, :active, :price, :tags)
+      params.require(:plate).permit(:place_id, :name, :slug, :content, :favored, :active, :price, :tags, :picture)
     end
 end

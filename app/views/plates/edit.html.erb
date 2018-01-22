@@ -1,3 +1,8 @@
-<div class="container bg-light">
-	<%= render 'form', place: @place %>
+<div class="container">
+	<%= render "places/card", place: @place %>
+	<div class="card py-3">
+		<div class="card-body">
+			<%= render 'form', plate: @plate %>
+		</div>
+	</div>
 </div>

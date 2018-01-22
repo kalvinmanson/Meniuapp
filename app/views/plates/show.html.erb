@@ -1,3 +1,28 @@
 <div class="container">
-  <%= render "card", place: @place %>
+  <%= render "places/card", place: @place %>
+
+  <div class="card py-2">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-7">
+          <h2><%= @plate.name %></h2>
+          <%= @plate.content.html_safe %>
+          <p>Views: <%= @plate.views %></p>
+          <p>Rank: <%= @plate.rank %></p>
+          <% @plate.tags.split(',').each do |tag| %>
+            <span class="d-inline-block btn-outline-secondary btn-sm"><%= tag.strip %></span>
+          <% end %>
+        </div>
+        <div class="col-sm-5">
+          <%= link_to image_tag(@plate.picture.url(:medium), class: 'img-fluid'), @plate.picture.url, :data => { :fancybox => '', :caption => @plate.name }  %>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-7">
+          <div class="fb-comments" data-width="" data-href="<%= request.url %>"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

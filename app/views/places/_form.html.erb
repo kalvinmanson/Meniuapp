@@ -31,13 +31,10 @@
               <i class="fa fa-phone"></i> <%= place.phone.presence || '+57 1 1234567 - +57 1 98736845' %><br>
               <i class="fa fa-envelope"></i> <%= place.email.presence || 'restaurante@correo.com' %>
             </p>
-            <p class="card-text">
-              <a href="#" class="btn btn-secondary"><i class="fa fa-map-o"></i> ¿Como llegar?</a>
-            </p>
           </div>
         </div>
       </div>
-    </div>    
+    </div>
   </div>
 </div>
 <div class="row">
@@ -90,7 +87,7 @@
     <%= form.hidden_field :lat, :class => "form-control" %>
     <%= form.hidden_field :lng, :class => "form-control" %>
     <div id="map" style="height: 400px;"></div>
-    <% 
+    <%
       if place.lat.present? && place.lat != 0
         maplat = place.lat
         maplng = place.lng
@@ -99,7 +96,7 @@
         maplng = current_user.lng
       end
     %>
-    
+
     <script>
       var map;
       function initMap() {
@@ -135,5 +132,5 @@
     <%= form.submit "Save", class: "btn btn-primary btn-lg" %>
   </div>
 </div>
-  
+
 <% end %>

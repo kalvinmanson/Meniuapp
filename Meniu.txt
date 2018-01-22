@@ -1,8 +1,12 @@
 
 ListToDo
--formulario de agregar lugar **
--formulario editar lugar
--slugs lugar
+-formulario de agregar lugar ***
+-formulario editar lugar***
+-Estadisticas
+-Buscardor
+-Api
+-Mobile App
+-Permisos Owner
 
 Gems
 
@@ -21,26 +25,3 @@ gem 'geokit-rails'
 gem 'unicorn'
 gem "paranoia", "~> 2.2" #configure in model
 gem 'cancancan', '~> 1.10'
-
-
------------------------------------------------------------------
-DB structure
-rails g scaffold User uid:string provider:string role:string name:string active:boolean lat:float lng:float
-
-rails g scaffold App user:references public_key:string private_key:string domains:string 
-
-rails g scaffold Category name:string place:boolean plate:boolean
-
-rails g scaffold Token user:references app:references token:string expires_at:datetime
-
-rails g scaffold Place user:references category:references name:string slug:string address:string phone:string email:string description:text rank:float views:integer lat:float lng:float expires_at:date
-
-rails g scaffold Plate place:references name:string slug:string content:text favored:boolean active:boolean price:integer tags:string
-
-rails g scaffold Quest user:references quest:string visited_place:integer visited_plate:integer lat:float lng:float
-
-rails g scaffold Vote user:references place:references rank:integer 
-
-rails g scaffold Visit user:references plate:references 
-
-rails g scaffold Payment user:references place:references months:integer total:integer status:string

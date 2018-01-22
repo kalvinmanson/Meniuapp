@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require popper.min
 //= require bootstrap.min
+//= require bootstrap-tagsinput.min
+//= require jquery.fancybox.min
+//= require slick.min
+//= require trumbowyg/trumbowyg
 //= require_tree .
 
 $(function() {
@@ -51,6 +55,22 @@ $(function() {
 
 	var obtener = getLocation();
 
-	console.log(obtener);
-   
+
+	$('.editor').trumbowyg({
+    svgPath: '/img/icons.svg'
+  });
+
+	$(".tags").tagsinput();
+
+	$("[data-fancybox]").fancybox({
+		// Options will go here
+	});
+
+	$('.slicker').slick({
+	  infinite: true,
+	  slidesToShow: 3,
+	  slidesToScroll: 3,
+		centerPadding: '15px'
+	});
+
 });

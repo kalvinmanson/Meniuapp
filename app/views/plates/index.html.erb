@@ -1,18 +1,22 @@
 <div class="container">
-	<%= render "card", place: @place %>
-	<% if @plates.count == 0 %>
-	  <div class="jumbotron">
-	    <h1>Are you new?</h1>
-	    <h3>You don't have any place created, your adventure begin here.</h3>
-	    <p align="center">
-	      <%= link_to '<i class="fa fa-plus"></i> New Plate'.html_safe, new_place_path, class: "btn btn-primary btn-lg" %>
-	    </p>
-	  </div>
-	<% else  %>
-		<%= link_to '<i class="fa fa-plus"></i> New Place'.html_safe, new_place_path, class: "btn btn-primary float-right" %>
-		<h1>Mi cuenta</h1>
-		<% @places.each do |place| %>
-			<%= render "card", place: place %>
+	<%= render "places/card", place: @place %>
+
+
+	<div class="card-columns py-3">
+		<% if current_user.present? %>
+      <% if current_user.id = @place.user.id %>
+				<div class="card">
+					<div class="card-header">Agregar nuevo plato</div>
+					<div class="card-body">
+						<p>Agrega los platos que ofreces en tu restaurante para atraer más clientes.</p>
+						<%= link_to '<i class="fa fa-plus"></i> Agregar un plato'.html_safe, new_place_plate_path(@place), class: "btn btn-primary" %>
+					</div>
+				</div>
+			<% end %>
 		<% end %>
-	<% end %>
+		<% @place.plates.each do |plate| %>
+				<%= render "plates/card", plate: plate %>
+		<% end %>
+
+	</div>
 </div>
