@@ -1,0 +1,53 @@
+<div class="container">
+  <%= render "card", place: @place %>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <form class="form-inline my-2 my-lg-0 ml-auto" method="GET">
+      <input class="form-control mr-sm-2" type="date" placeholder="Desde" aria-label="Hasta" name="date_from" value="<%= @date_from %>">
+      <input class="form-control mr-sm-2" type="date" placeholder="Hasta" aria-label="Hasta" name="date_to" value="<%= @date_to %>">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
+    </form>
+  </nav>
+
+
+  <div class="card">
+    <div class="card-body">
+      <h3>Platos</h3>
+
+
+      <h3>Visitas de usuarios</h3>
+      <table class="table table-striped">
+        <tr>
+          <th>Usuario</th>
+          <th>Plato</th>
+          <th>Fecha</h1>
+        </tr>
+        <% @visits.each do |visit| %>
+          <tr>
+            <td><%= visit.user.name %></td>
+            <td><%= link_to visit.plate.name, place_plate_path(visit.plate.place, visit.plate) %></td>
+            <td><%= visit.created_at %></td>
+          </tr>
+        <% end %>
+      </table>
+
+      <h3>Historico total por platos</h3>
+      <table class="table table-striped">
+        <tr>
+          <th>Palto</th>
+          <th>Vistas</th>
+          <th>Visitas</h1>
+          <th>Ranking</th>
+        </tr>
+        <% @place.plates.each do |plate| %>
+          <tr>
+            <td><%= link_to plate.name, place_plate_path(plate.place, plate) %></td>
+            <td><%= plate.views %></td>
+            <td><%= plate.visits.count %></td>
+            <td><%= plate.rank %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

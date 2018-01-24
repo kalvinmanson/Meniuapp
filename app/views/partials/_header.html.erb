@@ -15,25 +15,29 @@
 
       <% if user_signed_in? %>
 
-      <li class="nav-item">
-        <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'nav-link') %>
-      </li>
-
-      <% if current_user.role == 'Admin' %>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Admin
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "Apps", admin_apps_path, class: 'dropdown-item' %>
-          <%= link_to "Categories", admin_categories_path, class: 'dropdown-item' %>
-          <%= link_to "Payments", admin_payments_path, class: 'dropdown-item' %>
-          <%= link_to "Places", admin_places_path, class: 'dropdown-item' %>
-          <%= link_to "Users", admin_users_path, class: 'dropdown-item' %>
-        </div>
-      </li>
+        <li class="nav-item">
+          <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'nav-link') %>
+        </li>
+        <% if current_user.role == 'Admin' %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Apps", admin_apps_path, class: 'dropdown-item' %>
+              <%= link_to "Categories", admin_categories_path, class: 'dropdown-item' %>
+              <%= link_to "Payments", admin_payments_path, class: 'dropdown-item' %>
+              <%= link_to "Places", admin_places_path, class: 'dropdown-item' %>
+              <%= link_to "Users", admin_users_path, class: 'dropdown-item' %>
+            </div>
+          </li>
+        <% end %>
       <% end %>
-      <% end %>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="/places">
+      <input class="form-control mr-sm-2" type="search" name="q" placeholder="Buscar" aria-label="Buscar" value="<%= @q or '' %>">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
 
   </div>
 </nav>

@@ -1,0 +1,50 @@
+<div class="container py-4">
+	<div class="row">
+		<div class="col-sm-9">
+			<h2>Restaurantes</h2>
+			<div class="row">
+				<% @places.each do |place| %>
+					<div class="col-sm-6">
+						<%= render "places/cardmini", place: place %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="card">
+				<div class="card-header">Filtrar</div>
+				<div class="card-body">
+					<form method="GET" action="/places">
+		        <div class="form-group">
+		          <label for="q">Palabra clave</label>
+		          <input type="text" id="q" name="q" class="form-control" value="<%= @q %>">
+		        </div>
+		        <div class="form-group">
+		          <label>Precio (Min - Max)</label>
+		          <div class="row">
+		            <div class="col-6">
+		              <input type="number" id="min_price" name="min_price" min=5000 step=1000 placeholder="Min" class="form-control" value="<%= @min_price %>">
+		            </div>
+		            <div class="col-6">
+		              <input type="number" id="max_price" name="max_price" min=6000 step=1000 placeholder="Max" class="form-control" value="<%= @max_price %>">
+		            </div>
+		          </div>
+		        </div>
+		        <div class="form-group">
+		          <input type="hidden" name="lat" value="<%= @lat %>">
+		          <input type="hidden" name="lng" value="<%= @lng %>">
+		          <button type="submit" class="btn btn-primary">Filtrar</button>
+		        </div>
+		      </form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<h2>Platos</h2>
+	<div class="card-columns">
+		<% @plates.each do |plate| %>
+			<%= render "plates/card", plate: plate %>
+		<% end %>
+	</div>
+</div>

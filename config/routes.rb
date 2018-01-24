@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get '/places/my', to: 'places#my'
   resources :places do
     resources :plates
+    get '/data', to: 'places#data'
   end
   get '/como', to: 'web#how'
   get '/set_location', to: 'web#set_location'
