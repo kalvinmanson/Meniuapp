@@ -34,12 +34,14 @@ class Ability
       can :manage, :all
     else
       #Places
-      can [:my, :create], [Place]
-      can :manage, Place, user_id: user.id
+      can [:my, :create, :show], [Place]
+      can [:manage], Place, user_id: user.id
 
       #Plates
+      can [:show, :index], Plate
       can :manage, Plate, :place => { :user_id => user.id }
+
     end
-    
+
   end
 end

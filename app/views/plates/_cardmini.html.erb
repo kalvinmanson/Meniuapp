@@ -1,0 +1,11 @@
+<% if plate.active || (current_user.present? && current_user.id = plate.place.user.id) %>
+<div class="card border-0 mb-3">
+  <%= link_to image_tag(plate.picture.url(:medium), class: "card-img-top", alt: plate.name), place_plate_path(plate.place, plate, :quest => @quest) %>
+  <div class="card-footer">
+    <%= link_to '$' + number_with_delimiter(plate.price).to_s, place_plate_path(plate.place, plate, :quest => @quest), class: 'btn btn-danger float-right' %>
+    <%= plate.favored ? '<i class="fa fa-star text-warning"></i>'.html_safe : '' %>
+    <%= link_to plate.name, place_plate_path(plate.place, plate, :quest => @quest), class: 'text-dark' %><br>
+    <div class="text-success d-inline-block"><i class="fa fa-star-half-o"></i><%= plate.rank %></div>
+  </div>
+</div>
+<% end %>

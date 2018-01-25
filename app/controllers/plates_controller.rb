@@ -1,4 +1,8 @@
 class PlatesController < ApplicationController
+
+  load_and_authorize_resource :place
+  load_and_authorize_resource :plate, through: :place
+
   before_action :set_plate, only: [:show, :edit, :update, :destroy]
   before_action :set_place
 
@@ -7,6 +11,17 @@ class PlatesController < ApplicationController
   def index
     @plate =Plate.new
     @plates = Plate.all
+
+    #If quest asigned
+    if params[:quest].present?
+      @quest = Quest.find(params[:quest])
+      if @quest.present?
+        @quest.visited_place = @place.id
+        @quest.save
+      end
+    end
+    #If quest asigned end
+
   end
 
   # GET /plates/1
@@ -14,6 +29,17 @@ class PlatesController < ApplicationController
   def show
     @plate.views += 1;
     @plate.save
+
+    #If quest asigned
+    if params[:quest].present?
+      @quest = Quest.find(params[:quest])
+      if @quest.present?
+        @quest.visited_place = @place.id
+        @quest.visited_plate = @plate.id
+        @quest.save
+      end
+    end
+    #If quest asigned end
   end
 
   # GET /plates/new

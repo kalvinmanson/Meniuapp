@@ -15,7 +15,7 @@
   <div class="col-sm-6">
     <div class="form-group">
       <%= form.label :name %>
-      <%= form.text_field :name, id: :plate_name, class: "form-control" %>
+      <%= form.text_field :name, id: :plate_name, class: "form-control", :required => true %>
     </div>
     <div class="form-group">
       <%= form.label :picture %>
@@ -40,7 +40,7 @@
       <%= form.label :price %>
       <div class="input-group">
         <span class="input-group-addon">$</span>
-        <%= form.number_field :price, id: :price, class: "form-control" %>
+        <%= form.number_field :price, id: :price, class: "form-control", :required => true %>
         <span class="input-group-addon">.00</span>
       </div>
     </div>
@@ -48,7 +48,7 @@
   <div class="col-sm-6">
     <div class="form-group">
       <%= form.label :tags %>
-      <%= form.text_field :tags, id: :plate_tags, 'data-role'=>'tagsinput', class: "tags" %>
+      <%= form.text_field :tags, id: :plate_tags, 'data-role'=>'tagsinput', class: "tags", :required => true %>
     </div>
     <div class="form-group">
       <%= form.label :content %>

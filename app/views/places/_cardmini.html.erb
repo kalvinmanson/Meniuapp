@@ -4,9 +4,8 @@
     <%= image_tag place.logo.url(:medium), class: "float-right w-25" %>
     <h4 class="card-title"><%= place.name %></h4>
     <div class="btn-group" role="group" aria-label="Options">
-      <div class="btn btn-info btn-sm"><i class="fa fa-star"></i> <%= place.rank %></div>
-      <%= link_to 'Restaurante', place, class: 'btn btn-secondary btn-sm' %>
-      <%= link_to 'Platos (' + place.plates.count.to_s + ')', place_plates_path(place), class: 'btn btn-secondary btn-sm' %>
+      <%= link_to '<i class="fa fa-star-half-o"></i> '.html_safe + place.rank.to_s, place_path(place, :quest => @quest), class: 'btn btn-sm btn-info' %>
+      <%= link_to 'Platos (' + place.plates.count.to_s + ')', place_plates_path(place, :quest => @quest), class: 'btn btn-secondary btn-sm' %>
     </div>
   </div>
 </div>

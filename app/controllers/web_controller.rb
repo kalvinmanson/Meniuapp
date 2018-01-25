@@ -20,6 +20,8 @@ class WebController < ApplicationController
   		else
   			current_user.lat = request.location.latitude
   			current_user.lng = request.location.longitude
+        session[:lat] = request.location.latitude
+        session[:lng] = request.location.longitude
   		end
 
   		current_user.save

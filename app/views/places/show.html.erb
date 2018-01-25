@@ -1,10 +1,16 @@
 <div class="container">
-  <%= render "card", place: @place %>
-    <div class="slicker py-3">
-      <% @place.plates.each do |plate| %>
-        <div class="px-2">
-  				<%= render "plates/card", plate: plate %>
-        </div>
-  		<% end %>
+  <%= render "places/card", place: @place %>
+  <div class="row py-3">
+    <div class="col-sm-8">
+      <div class="columns2">
+        <% @place.plates.each do |plate| %>
+    				<%= render "plates/cardmini", plate: plate %>
+    		<% end %>
+      </div>
     </div>
+    <div class="col-sm-4">
+      
+    </div>
+  </div>
+
 </div>

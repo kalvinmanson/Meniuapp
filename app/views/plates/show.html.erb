@@ -5,12 +5,13 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-7">
+          <div class="btn btn-danger btn-lg float-right"><%= '$' + number_with_delimiter(@plate.price).to_s %></div>
           <h2><%= @plate.name %></h2>
           <%= @plate.content.html_safe %>
           <p>Views: <%= @plate.views %></p>
-          <p>Rank: <%= @plate.rank %></p>
+          <div class="text-success d-inline-block"><i class="fa fa-star-half-o"></i><%= @plate.rank %></div>
           <% @plate.tags.split(',').each do |tag| %>
-            <span class="d-inline-block btn-outline-secondary btn-sm"><%= tag.strip %></span>
+            <%= link_to tag.strip, '/places?q='+tag.strip, class: 'btn-outline-secondary btn-sm d-inline-block' %>
           <% end %>
         </div>
         <div class="col-sm-5">

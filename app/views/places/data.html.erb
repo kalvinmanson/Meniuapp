@@ -12,7 +12,24 @@
 
   <div class="card">
     <div class="card-body">
-      <h3>Platos</h3>
+      <h3>Leads Organicos</h3>
+      <table class="table table-striped">
+        <tr>
+          <th>Usuario</th>
+          <th>Busqueda</th>
+          <th>Plato</th>
+          <th>Fecha</th>
+        </tr>
+      <% @quests.each do |quest| %>
+        <tr>
+          <td><%= quest.user.name %></td>
+          <td><%= quest.quest %></td>
+          <td><%= quest.plate ? quest.plate.name : '' %></td>
+          <td><%= quest.created_at %></td>
+      </tr>
+      <% end %>
+      </table>
+
 
 
       <h3>Visitas de usuarios</h3>

@@ -1,9 +1,8 @@
 class PlacesController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource :place
   before_action :set_place, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :charts, :my, :data]
-
 
   def my
     @places = Place.where(user: current_user).all
@@ -26,6 +25,7 @@ class PlacesController < ApplicationController
     @days = (@date_from..@date_to).map(&:to_s)
     @visits = @place.visits.where(:created_at => @date_from..@date_to).order(created_at: :desc)
     @votes = @place.votes.where(:created_at => @date_from..@date_to).order(created_at: :desc)
+    @quests = @place.quests.where(:created_at => @date_from..@date_to).order(created_at: :desc)
 
   end
 
@@ -42,43 +42,60 @@ class PlacesController < ApplicationController
       @lat = search_params[:lat]
       @lng = search_params[:lng]
     end
+    #if query keyword
     if params['q'].present?
       @q = search_params[:q]
-
-      @min_price = search_params[:min_price]
-      @max_price = search_params[:max_price]
-      @options = search_params[:options]
-      @category = search_params[:category]
-      @plates = Plate.where('plates.name LIKE "%"?"%"', @q).or(Plate.where('plates.content LIKE "%"?"%"', @q)).joins(:place).by_distance(:origin => [@lat,@lng])
-      #if isset options
-      if @options.present?
-        @options.each do |option|
-          @plates = @plates.where('plates.options LIKE "%"?"%"', option)
-        end
-      else
-        @options = []
-      end
-      #if isset category
-      if @category.present? && @category != "ALL"
-          @plates = @plates.where('plates.category = ?', @category)
-      end
-      #if prices
-      if @min_price.present?
-          @plates = @plates.where('plates.price > ?', @min_price)
-      end
-      #if prices
-      if @max_price.present?
-          @plates = @plates.where('plates.price < ?', @max_price)
-      end
+      @plates = Plate.where('plates.name LIKE "%"?"%"', @q).or(Plate.where('plates.tags LIKE "%"?"%"', @q)).or(Plate.where('plates.content LIKE "%"?"%"', @q)).joins(:place).by_distance(:origin => [@lat,@lng])
     else
       @plates = Plate.joins(:place).by_distance(:origin => [@lat,@lng])
     end
+
+    #if prices
+    if search_params[:min_price].present?
+      @min_price = search_params[:min_price]
+      @plates = @plates.where('plates.price >= ?', @min_price)
+    end
+    #if prices
+    if search_params[:max_price].present?
+      @max_price = search_params[:max_price]
+      @plates = @plates.where('plates.price <= ?', @max_price)
+    end
+
     @plates = @plates.limit(50)
     @places = Place.by_distance(:origin => [@lat,@lng]).limit(4)
+
+    #save Quest
+    @quest =Quest.new
+    #save user if exists
+    if current_user.present?
+      @quest.user = current_user
+    else
+      @quest.user = User.first
+    end
+    #Save query keyword if exists
+    if @q.present?
+      @quest.quest = @q
+    else
+      @quest.quest = 'FrontPage'
+    end
+    #geolocation Quest
+    @quest.lat = @lat
+    @quest.lng = @lng
+
+    @quest.save
+
   end
 
   def show
-
+    #If quest asigned
+    if params[:quest].present?
+      @quest = Quest.find(params[:quest])
+      if @quest.present?
+        @quest.visited_place = @place.id
+        @quest.save
+      end
+    end
+    #If quest asigned end
   end
 
   def new
@@ -94,6 +111,8 @@ class PlacesController < ApplicationController
   def create
     @place = Place.new(place_params)
     @place.user = current_user
+    @place.visits = 0
+    @place.rank = 0
     if @place.save
       redirect_to place_path(@place), notice: 'Place was successfully created.'
     else
@@ -126,7 +145,7 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:q, :user_id, :category_id, :name, :slug, :address, :phone, :email, :description, :rank, :views, :lat, :lng, :expires_at, :cover, :avatar, :logo)
+      params.require(:place).permit(:user_id, :category_id, :name, :slug, :address, :phone, :email, :description, :rank, :views, :lat, :lng, :expires_at, :cover, :avatar, :logo)
     end
 
     def search_params

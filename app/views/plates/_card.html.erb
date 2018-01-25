@@ -6,18 +6,22 @@
     <strong>Recomendado</strong>
   </div>
   <% end %>
-  <%= link_to image_tag(plate.picture.url(:medium), class: "card-img-top", alt: plate.name), place_plate_path(plate.place, plate) %>
+  <%= link_to image_tag(plate.picture.url(:medium), class: "card-img-top", alt: plate.name), place_plate_path(plate.place, plate, :quest => @quest) %>
   <div class="card-body">
-    <%= link_to 'Ver', place_plate_path(plate.place, plate), class: 'btn btn-sm btn-primary float-right' %>
-    <% if current_user.present? %>
-      <% if current_user.id = plate.place.user.id %>
+    <% if can? :update, plate %>
       <%= link_to 'Editar', edit_place_plate_path(plate.place, plate), class: 'btn btn-sm btn-light float-right' %>
-      <% end %>
     <% end %>
-    <h5 class="card-title"><%= plate.name %></h5>
+
+    <h5 class="card-title"><%= link_to plate.name, place_plate_path(plate.place, plate, :quest => @quest), class: 'text-dark' %></h5>
     <% plate.tags.split(',').each do |tag| %>
-      <span class="btn-outline-secondary btn-sm"><%= tag.strip %></span>
+      <%= link_to tag.strip, '/places?q='+tag.strip, class: 'btn-outline-secondary btn-sm d-inline-block' %>
     <% end %>
+  </div>
+  <div class="card-footer">
+    <i class="fa fa-location-arrow"></i> <%= plate.place.distance_from([session[:lat],session[:lng]], :units=>:kms).round(2) %> Kms 
+    <%= link_to '$' + number_with_delimiter(plate.price).to_s, place_plate_path(plate.place, plate, :quest => @quest), class: 'btn btn-danger float-right' %>
+    <div class="text-success d-inline-block"><i class="fa fa-star-half-o"></i><%= plate.rank %></div>
+    <div class="clearfix"></div>
   </div>
 </div>
 <% end %>

@@ -21,8 +21,10 @@
             </p>
 
             <div class="btn-group" role="group" aria-label="Options">
-              <a href="#mapanchor" onclick="javascript:mapper()" class="btn btn-secondary"><i class="fa fa-map-o"></i> Mapa</a>
-              <%= link_to 'Restaurante', place, class: 'btn btn-secondary' %>
+              <a href="#mapanchor" onclick="javascript:mapper()" class="btn btn-dark">
+                <i class="fa fa-location-arrow"></i> <%= place.distance_from([session[:lat],session[:lng]], :units=>:kms).round(2) %> Kms
+              </a>
+              <%= link_to '<i class="fa fa-star-half-o"></i>'.html_safe + place.rank.to_s, place, class: 'btn btn-info' %>
               <%= link_to 'Platos', place_plates_path(place), class: 'btn btn-secondary' %>
             </div>
           </div>
@@ -30,7 +32,7 @@
       </div>
     </div>
     <% if current_user.present? %>
-      <% if current_user.id = place.user.id %>
+      <% if current_user.id == place.user.id %>
       <div class="btn-group float-right" role="group" aria-label="Options">
         <%= link_to '<i class="fa fa-edit"></i> Editar'.html_safe, edit_place_path(place), class: 'btn btn-light' %>
         <%= link_to '<i class="fa fa-line-chart"></i> Estadisticas'.html_safe, place_data_path(place), class: 'btn btn-light' %>
