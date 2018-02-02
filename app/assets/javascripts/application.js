@@ -41,8 +41,8 @@ $(function() {
 		    $('#longitude').val(crd.longitude);
 
 		    $.ajax({
-			  url: "/set_location?latitude="+crd.latitude+"&longitude="+crd.longitude
-			});
+			  	url: "/set_location?latitude="+crd.latitude+"&longitude="+crd.longitude
+				});
 		};
 
 		function error(err) {

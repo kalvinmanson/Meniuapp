@@ -24,7 +24,7 @@ class WebController < ApplicationController
         session[:lng] = request.location.longitude
   		end
 
-  		current_user.save
+  		current_user.save(validate: false)
   		render json: '{"lat": "' + current_user.lat.to_s + '", "lng": "' + current_user.lng.to_s + '"}'
   	end
   end
