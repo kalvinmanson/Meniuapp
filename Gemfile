@@ -41,6 +41,7 @@ gem 'geocoder'
 gem 'geokit-rails'
 gem 'trumbowyg_rails'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'unicorn'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
