@@ -40,6 +40,7 @@ gem "paperclip", "~> 5.0.0"
 gem 'geocoder'
 gem 'geokit-rails'
 gem 'trumbowyg_rails'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

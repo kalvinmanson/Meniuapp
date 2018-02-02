@@ -15,6 +15,19 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root to: "web#index"
+  #API
+  namespace :api, defaults: { format: "json" } do
+    namespace :v1 do
+      post 'users/autologin', to: 'users#autologin'
+      post 'users/login', to: 'users#login'
+      post 'users/register', to: 'users#register'
+      resources :users
+
+      resources :places do
+        resources :plates
+      end
+    end
+  end
 
   namespace :admin do
     resources :payments
@@ -35,4 +48,5 @@ Rails.application.routes.draw do
   end
   get '/como', to: 'web#how'
   get '/set_location', to: 'web#set_location'
+
 end
