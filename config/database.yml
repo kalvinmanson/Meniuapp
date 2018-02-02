@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: Meniuapp_production
-  username: Meniuapp
+  username: meniu
   password: <%= ENV['MENIUAPP_DATABASE_PASSWORD'] %>
