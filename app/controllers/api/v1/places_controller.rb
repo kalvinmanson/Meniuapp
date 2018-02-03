@@ -4,9 +4,6 @@ class Api::V1::PlacesController < ApplicationController
     if params['lat'].present? && params['lng'].present?
       @lat = search_params[:lat]
       @lng = search_params[:lng]
-    elsif current_user.present?
-      @lat = current_user.lat
-      @lng = current_user.lng
     else
       @lat = search_params[:lat]
       @lng = search_params[:lng]
@@ -53,7 +50,7 @@ class Api::V1::PlacesController < ApplicationController
 
     @quest.save
 
-    render json: @plates
+    render json: @plates.to_json(:methods => [:picture_url])
   end
 
   private

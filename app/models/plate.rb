@@ -7,4 +7,8 @@ class Plate < ApplicationRecord
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/
 
   acts_as_mappable :through => :place
+
+  def picture_url
+    picture.url(:thumb)
+  end
 end
